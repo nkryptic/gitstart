@@ -1,4 +1,5 @@
 require 'fileutils'
+require 'yaml'
 
 module Gitstart
   
@@ -97,6 +98,10 @@ module Gitstart
       def checkout(branch_name)
         `git checkout -b #{branch_name} 2>/dev/null`
       end
+      
+      def status
+        `git status 2>&1`
+      end
     end
     
     module GitSvn
@@ -113,6 +118,51 @@ module Gitstart
       
       def show_ignore
         `git svn show-ignore`
+      end
+    end
+  end
+  
+  module Status
+    extend self
+    extend Help
+    
+    def status
+      target = Dir.pwd
+      
+      unless File.directory?('.git')
+        ui.puts "#{target} does not appear to be a git repository"
+        exit 1
+      end
+      
+      ui.puts "Status for project at #{target}:"
+      ui.indent
+      ui.puts *Sh::Git.status.split("\n")
+      ui.unindent
+      ui.puts
+    end
+    
+    def status_with_externals
+      status
+      
+      external_info_file = '.externals/externals_info.yaml'
+      unless File.exist?(external_info_file)
+        ui.puts "cannot locate the #{external_info_file} to load externals"
+        exit 1
+      end
+      
+      externals = YAML.load(File.open(external_info_file))
+      
+      externals.each do |dir, repos|
+        repos.each do |ext_dir, ext_repo|
+          target = File.join(dir, ext_dir)
+          ui.puts "Status for external at #{target}:"
+          Dir.chdir(target) do
+            ui.indent
+            ui.puts *Sh::Git.status.split("\n")
+            ui.unindent
+          end
+          ui.puts
+        end
       end
     end
   end
@@ -216,6 +266,10 @@ module Gitstart
             end
             File.open('.git/info/exclude', 'a') { |f| f.puts File.join(dir, ext_dir) }
           end
+        end
+        
+        File.open( File.join(externals_dir, 'externals_info.yaml'), 'w' ) do |out|
+          YAML.dump( externals, out )
         end
       end
       
