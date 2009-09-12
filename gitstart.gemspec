@@ -5,15 +5,14 @@
 
 Gem::Specification.new do |s|
   s.name = %q{gitstart}
-  s.version = "0.1.0"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["nkryptic"]
   s.date = %q{2009-09-12}
-  s.default_executable = %q{gitstart}
   s.description = %q{Initialize a git-svn clone of a repository including svn:externals}
   s.email = %q{nkryptic@gmail.com}
-  s.executables = ["gitstart"]
+  s.executables = ["gitstart", "gitstart-status"]
   s.extra_rdoc_files = [
     "LICENSE",
      "README.rdoc"
@@ -26,6 +25,8 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "bin/gitstart",
+     "bin/gitstart-status",
+     "gitstart.gemspec",
      "lib/gitstart.rb",
      "spec/gitstart_spec.rb",
      "spec/spec_helper.rb"
