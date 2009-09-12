@@ -2,6 +2,14 @@
 
 Based upon http://github.com/gma/git-me-up
 
+== Install
+
+  sudo gem install nkryptic-gitstart -s http://gem.github.com
+
+== Usage
+
+  gitstart <svn-repository> <target-directory>
+
 == Note on Patches/Pull Requests
  
 * Fork the project.
