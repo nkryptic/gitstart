@@ -3,17 +3,18 @@ require 'rake'
 
 begin
   require 'jeweler'
-  Jeweler::Tasks.new do |gem|
-    gem.name = "gitstart"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
-    gem.email = "nkryptic@gmail.com"
-    gem.homepage = "http://github.com/nkryptic/gitstart"
-    gem.authors = ["nkryptic"]
-    gem.add_development_dependency "rspec"
-    gem.add_development_dependency "yard"
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+  Jeweler::Tasks.new do |gemspec|
+    gemspec.name = "gitstart"
+    gemspec.summary = "Initialize a git-svn clone of a repository including svn:externals"
+    gemspec.description = "Initialize a git-svn clone of a repository including svn:externals"
+    gemspec.email = "nkryptic@gmail.com"
+    gemspec.homepage = "http://github.com/nkryptic/gitstart"
+    gemspec.authors = ["nkryptic"]
+    gemspec.add_development_dependency "rspec"
+    gemspec.add_development_dependency "yard"
+    # gemspec is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
+  Jeweler::GemcutterTasks.new
 rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
 end

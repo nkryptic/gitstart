@@ -1,6 +1,6 @@
 = gitstart
 
-Description goes here.
+Based upon http://github.com/gma/git-me-up
 
 == Note on Patches/Pull Requests
  
